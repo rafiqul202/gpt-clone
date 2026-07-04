@@ -100,6 +100,7 @@
     left: 0;
     opacity: 0.1;
     animation: 100s linear infinite rotateOrbital;
+    z-index: -1;
   }
 
   .terms {
