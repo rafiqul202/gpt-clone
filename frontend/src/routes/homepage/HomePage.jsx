@@ -6,7 +6,7 @@ const HomePage = () => {
   const [typingStatus, setTypingStatus] = useState("human1");
   return (
     <div className="homepage">
-      <img src="./orbital.png" alt="arbital" className="orbital" />
+      <img src="/orbital.png" alt="arbital" className="orbital" />
       <div className="left">
         <h1>TANOY AI</h1>
         <h2>Supercharge your creativity and productivity</h2>
@@ -67,14 +67,12 @@ const HomePage = () => {
         </div>
       </div>
       <div className="terms">
-        <img src="./logo.png" alt="Logo" />
+        <img src="/logo.png" alt="Logo" />
         <div className="Links">
           <Link to={"/"}>Terms of Service</Link>
           <span>|</span>
           <Link to={"/"}>Privacy Policy</Link>
-
         </div>
-
       </div>
     </div>
   );

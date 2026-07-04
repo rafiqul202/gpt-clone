@@ -18,7 +18,7 @@ const DashbordPage = () => {
     <div className="dashboardPage">
       <div className="text">
         <div className="logo">
-          <img src="./logo.png" alt="Logo" />
+          <img src="/logo.png" alt="Logo" />
           <h1>AI</h1>
         </div>
         <div className="options">

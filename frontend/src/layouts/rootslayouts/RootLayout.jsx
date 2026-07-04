@@ -7,7 +7,7 @@ const RootLayout = () => {
     <div className="rootlayout">
       <header>
         <Link to={"/"} className="logo">
-          <img src="./logo.png" alt="Logo" />
+          <img src="/logo.png" alt="Logo" />
           <span>TANOY AI</span>
         </Link>
         <div className="user">
