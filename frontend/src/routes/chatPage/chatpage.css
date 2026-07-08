@@ -1,8 +1,13 @@
+.endChat {
+  padding-bottom: 100px;
+}
+
 .chatpage {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   .wrapper {
     flex: 1;
     overflow: scroll;

@@ -8,9 +8,11 @@ import HomePage from "./routes/homepage/HomePage";
 import RootLayout from "./layouts/rootslayouts/RootLayout.jsx";
 import DashboardLayout from "./layouts/dashboardLayout/DashboardLayout.jsx";
 import DashbordPage from "./routes/dashbordPage/DashbordPage.jsx";
-import ChatPage from "./routes/chatPage/ChatPage.jsx";
+// import ChatPage from "./routes/chatPage/ChatPage.jsx";
 import SignInPage from "./routes/signInPage/SignInPage.jsx";
 import SignUpPage from "./routes/signuppage/SignUpPage.jsx";
+// import NewPrompt from "./newPrompt/NewPrompt.jsx";
+import ChatPage from "./routes/chatPage/ChatPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
         children: [
           { path: "/dashboard", element: <DashbordPage /> },
           { path: "/dashboard/chats/:id", element: <ChatPage /> },
+          // { path: "/dashboard/chats/:id", element: <NewPrompt /> },
         ],
       },
     ],
