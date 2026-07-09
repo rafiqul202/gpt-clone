@@ -7,8 +7,7 @@ import { openRouterAI } from "../components/openRouterAi";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import { BeatLoader } from "react-spinners";
 const NewPrompt = () => {
-  const [input, setInput] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [question, setQuestion] = useState("");
   const [selectedModel, setSelectedModel] = useState({
     label: "Navidia Nemotron",
     value: "nvidia/nemotron-3-super-120b-a12b:free",
@@ -63,7 +62,7 @@ const NewPrompt = () => {
 
   useEffect(() => {
     endRef.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [messages, question]);
 
   const handleSelect = (e) => {
     e.preventDefault();
@@ -71,27 +70,36 @@ const NewPrompt = () => {
     setIsModelMenuOpen(!isModelMenuOpen);
   };
 
-  console.log("inpute text ", input);
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    const UserText = e.target.text.value;
+    if (UserText === "") {
+      alert("Please write something...");
+    } else {
+      add(UserText);
+
+      setHasConversationStarted(true);
+      setLoading(true);
+      let response = await openRouterAI(UserText, selectedModel.value);
+
+      setMessages((prev) => [...prev, { sender: "ai", text: response }]);
+      setLoading(false);
+    }
+  };
+
+  const add = (text) => {
+    setQuestion(text);
+  };
   return (
     <>
       {/* conversation message */}
+      {question && <div className="message user">{question}</div>}
 
       {hasConversationStarted && (
-        <div className="space-y-6 chats h-[66vh] overflow-auto min-w-[60vw] max-w-3xl mx-auto flex-1 flex flex-col justify-start">
+        <div className="message">
           {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex w-full ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`max-w-[100%] rounded-2xl p-5 text-sm leading-relaxed tracking-normal ${
-                  msg.sender === "user"
-                    ? "bg-[#18181C] text-zinc-100 border border-zinc-800"
-                    : "min-w-[100%] text-zinc-300 border border-zinc-900"
-                }`}
-              >
-                <MarkdownPreview source={msg.text} />
-              </div>
+            <div key={msg.id}>
+              <MarkdownPreview source={msg.text} />
             </div>
           ))}
 
@@ -108,7 +116,7 @@ const NewPrompt = () => {
         />
       )}
       <div className="endChat" ref={endRef}></div>
-      <form className="newForm" ref={formRef}>
+      <form className="newForm" ref={formRef} onSubmit={handleAdd}>
         <Upload setImg={setImg} />
         {/* Bottom Actions Row */}
         <div className="flex items-center justify-between pt-1 border-t border-zinc-900/50">
@@ -312,32 +320,8 @@ const NewPrompt = () => {
           </div>
         </div>
         <input id="file" type="file" multiple={false} hidden />
-        <input
-          type="text"
-          name="text"
-          placeholder="Ask anything..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button
-          onClick={async (e) => {
-            if (input === "") {
-              alert("Please write something...");
-            } else {
-              e.preventDefault();
-              setMessages((prev) => [...prev, { sender: "user", text: input }]);
-              setHasConversationStarted(true);
-              setLoading(true);
-              let response = await openRouterAI(input, selectedModel.value);
-              setInput("");
-              setMessages((prev) => [
-                ...prev,
-                { sender: "ai", text: response },
-              ]);
-              setLoading(false);
-            }
-          }}
-        >
+        <input type="text" name="text" placeholder="Ask anything..." />
+        <button>
           <img src="/arrow.png" alt="" />
         </button>
       </form>
